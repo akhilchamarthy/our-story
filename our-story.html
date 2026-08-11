@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Akhil &amp; Lali — Our Story</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#f3ead9;
+    --cream-2:#ece0c9;
+    --paper:#faf5ea;
+    --terracotta:#b8623f;
+    --terracotta-dark:#96482c;
+    --olive:#6b7350;
+    --olive-dark:#4f5539;
+    --espresso:#3a2e26;
+    --espresso-soft:#5b4a3d;
+    --gold:#c9a15a;
+    --line:rgba(58,46,38,0.18);
+    --shadow: 0 20px 60px rgba(58,46,38,0.18);
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth; background:var(--cream);}
+  body{
+    margin:0;
+    font-family:'Jost', sans-serif;
+    color:var(--espresso);
+    background:var(--cream);
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.serif{
+    font-family:'Cormorant Garamond', serif;
+    font-weight:600;
+    letter-spacing:0.01em;
+  }
+  .eyebrow{
+    font-family:'Jost',sans-serif;
+    text-transform:uppercase;
+    letter-spacing:0.28em;
+    font-size:0.72rem;
+    color:var(--terracotta-dark);
+    opacity:0.85;
+  }
+  a{color:inherit;}
+
+  /* ---------- Film grain + vignette overlay ---------- */
+  .grain{
+    position:fixed; inset:0; z-index:40; pointer-events:none;
+    opacity:0.05; mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    animation:grainShift 0.6s steps(4) infinite;
+  }
+  @keyframes grainShift{
+    0%{transform:translate(0,0);} 25%{transform:translate(-2%,1%);}
+    50%{transform:translate(1%,-2%);} 75%{transform:translate(-1%,-1%);}
+    100%{transform:translate(0,0);}
+  }
+  .vignette{
+    position:fixed; inset:0; z-index:39; pointer-events:none;
+    background:radial-gradient(ellipse at center, rgba(58,46,38,0) 45%, rgba(38,28,20,0.28) 100%);
+  }
+
+  /* ---------- Progress rail ---------- */
+  .rail{
+    position:fixed; right:22px; top:50%; transform:translateY(-50%);
+    z-index:45; display:flex; flex-direction:column; gap:14px;
+    align-items:center;
+  }
+  .rail .dot{
+    width:8px; height:8px; border-radius:50%;
+    background:rgba(58,46,38,0.25);
+    border:1px solid rgba(58,46,38,0.35);
+    cursor:pointer; transition:all .4s ease;
+  }
+  .rail .dot.active{
+    background:var(--terracotta); border-color:var(--terracotta);
+    transform:scale(1.5);
+  }
+  @media (max-width:720px){ .rail{display:none;} }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; padding:40px 24px; position:relative;
+    background:
+      radial-gradient(ellipse at 30% 20%, rgba(201,161,90,0.18), transparent 55%),
+      radial-gradient(ellipse at 75% 80%, rgba(107,115,80,0.16), transparent 55%),
+      var(--cream);
+  }
+  .hero .eyebrow{margin-bottom:18px;}
+  .hero h1{
+    font-size:clamp(2.6rem, 7vw, 5.2rem);
+    margin:0; line-height:1.05; color:var(--espresso);
+  }
+  .hero .amp{color:var(--terracotta); font-style:italic;}
+  .hero p{
+    max-width:480px; margin:22px auto 0; color:var(--espresso-soft);
+    font-size:1.05rem; line-height:1.6;
+  }
+  .scroll-cue{
+    margin-top:56px; font-size:0.75rem; letter-spacing:0.3em; text-transform:uppercase;
+    color:var(--espresso-soft); opacity:0.7;
+    display:flex; flex-direction:column; align-items:center; gap:8px;
+  }
+  .scroll-cue::after{
+    content:""; width:1px; height:40px; background:linear-gradient(var(--terracotta), transparent);
+    animation:pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse{0%,100%{opacity:.3;}50%{opacity:1;}}
+
+  /* ---------- Layout ---------- */
+  .wrap{max-width:760px; margin:0 auto; padding:0 26px;}
+  .chapter{padding:140px 0 40px; position:relative;}
+  .chapter:first-of-type{padding-top:100px;}
+  .chapter-head{margin-bottom:44px;}
+  .chapter-num{
+    font-family:'Cormorant Garamond',serif; font-style:italic; color:var(--gold);
+    font-size:1.1rem; margin-bottom:6px; display:block;
+  }
+  .chapter-head h2{
+    font-size:clamp(2rem,5vw,3.2rem); margin:0 0 8px; color:var(--espresso);
+  }
+  .chapter-head .dates{color:var(--terracotta-dark); font-size:0.85rem; letter-spacing:0.08em; text-transform:uppercase;}
+  .chapter-intro{
+    font-family:'Cormorant Garamond',serif; font-style:italic; font-size:1.35rem;
+    color:var(--espresso-soft); max-width:560px; line-height:1.5; margin:18px 0 40px;
+    border-left:2px solid var(--terracotta); padding-left:20px;
+  }
+
+  .moment{
+    display:flex; gap:22px; padding:18px 0; border-top:1px solid var(--line);
+  }
+  .moment:last-child{border-bottom:1px solid var(--line);}
+  .moment .when{
+    flex:0 0 92px; font-size:0.78rem; color:var(--terracotta-dark);
+    text-transform:uppercase; letter-spacing:0.06em; padding-top:3px;
+  }
+  .moment .what{flex:1; line-height:1.65; color:var(--espresso-soft); font-size:1rem;}
+  .moment .what b{color:var(--espresso); font-weight:500;}
+
+  .milestone{
+    text-align:center; margin:70px auto; max-width:520px;
+  }
+  .milestone .line{
+    display:flex; align-items:center; gap:14px; color:var(--olive-dark);
+    font-family:'Cormorant Garamond',serif; font-style:italic; font-size:1.5rem;
+  }
+  .milestone .line::before, .milestone .line::after{
+    content:""; flex:1; height:1px; background:linear-gradient(90deg,transparent,var(--olive),transparent);
+  }
+  .milestone .date{display:block; margin-top:6px; font-family:'Jost',sans-serif; font-style:normal; font-size:0.75rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--olive-dark); opacity:.75;}
+
+  /* ---------- Photo frames ---------- */
+  .frames{display:flex; gap:18px; flex-wrap:wrap; margin:36px 0 8px;}
+  .photo-frame{
+    background:var(--paper);
+    border:1px solid var(--line);
+    box-shadow:var(--shadow);
+    padding:10px 10px 34px;
+    position:relative;
+    transform:rotate(var(--rot,-1.5deg));
+    transition:transform .5s ease;
+    flex:1 1 220px; max-width:280px;
+  }
+  .photo-frame:nth-child(2n){--rot:1.5deg;}
+  .photo-frame:nth-child(3n){--rot:-0.6deg;}
+  .photo-frame:hover{transform:rotate(0deg) scale(1.02);}
+  .photo-frame .slot{
+    aspect-ratio:4/5; width:100%;
+    background:
+      repeating-linear-gradient(135deg, rgba(58,46,38,0.06) 0 2px, transparent 2px 10px),
+      linear-gradient(160deg, var(--cream-2), var(--cream));
+    display:flex; align-items:center; justify-content:center;
+    color:var(--espresso-soft); opacity:0.55;
+  }
+  .photo-frame .slot svg{width:34px; height:34px;}
+  .photo-frame figcaption{
+    position:absolute; bottom:8px; left:0; right:0; text-align:center;
+    font-family:'Cormorant Garamond',serif; font-style:italic; font-size:0.85rem; color:var(--espresso-soft);
+  }
+  /* TO REPLACE A PLACEHOLDER WITH A REAL PHOTO:
+     find the .slot div with the matching caption below it and swap it for:
+     <img src="photos/your-file.jpg" alt="..." style="width:100%;height:100%;object-fit:cover;"> */
+
+  /* ---------- Trivia ---------- */
+  .trivia{
+    margin:90px auto; max-width:560px;
+    background:var(--paper); border:1px solid var(--line);
+    box-shadow:var(--shadow); border-radius:2px;
+    padding:38px 34px;
+  }
+  .trivia .eyebrow{margin-bottom:10px;}
+  .trivia h3{font-size:1.6rem; margin:0 0 24px; color:var(--espresso); line-height:1.3;}
+  .trivia .opts{display:flex; flex-direction:column; gap:10px;}
+  .trivia button{
+    text-align:left; font-family:'Jost',sans-serif; font-size:0.98rem;
+    padding:13px 16px; background:var(--cream); border:1px solid var(--line);
+    border-radius:2px; cursor:pointer; color:var(--espresso); transition:all .25s ease;
+  }
+  .trivia button:hover:not(:disabled){border-color:var(--terracotta); background:var(--cream-2);}
+  .trivia button.correct{background:rgba(107,115,80,0.18); border-color:var(--olive); color:var(--olive-dark);}
+  .trivia button.incorrect{background:rgba(184,98,63,0.14); border-color:var(--terracotta); color:var(--terracotta-dark);}
+  .trivia button:disabled{cursor:default;}
+  .trivia .reveal{
+    margin-top:16px; font-family:'Cormorant Garamond',serif; font-style:italic;
+    color:var(--olive-dark); font-size:1.05rem; opacity:0; max-height:0; overflow:hidden;
+    transition:opacity .5s ease;
+  }
+  .trivia .reveal.show{opacity:1; max-height:200px; margin-top:16px;}
+
+  /* ---------- Finale ---------- */
+  .finale{
+    min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; padding:120px 24px 100px;
+    background:linear-gradient(180deg, var(--cream), var(--cream-2));
+    position:relative;
+  }
+  .finale .eyebrow{margin-bottom:16px;}
+  .finale h2{font-size:clamp(2.4rem,6vw,4rem); margin:0 0 20px; color:var(--espresso);}
+  .finale p{max-width:480px; color:var(--espresso-soft); font-size:1.1rem; line-height:1.7; margin:0 auto 40px;}
+  .finale .photo-frame{max-width:340px; margin:0 auto 46px;}
+  .finale .photo-frame .slot{aspect-ratio:1/1;}
+  .finale .signature{font-family:'Cormorant Garamond',serif; font-style:italic; font-size:1.3rem; color:var(--terracotta-dark);}
+  /* FINALE PHOTO: replace the .slot in the .finale .photo-frame with your engagement photo,
+     and edit the text below it once you have the exact date/details. */
+
+  /* ---------- Reveal-on-scroll ---------- */
+  .reveal-el{opacity:0; transform:translateY(36px); transition:opacity 1s cubic-bezier(.16,.84,.44,1), transform 1s cubic-bezier(.16,.84,.44,1);}
+  .reveal-el.in-view{opacity:1; transform:translateY(0);}
+
+  footer{text-align:center; padding:50px 24px 70px; color:var(--espresso-soft); font-size:0.8rem; letter-spacing:0.1em; text-transform:uppercase; opacity:0.6;}
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+<div class="vignette"></div>
+
+<nav class="rail" id="rail"></nav>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <span class="eyebrow">A film in chapters</span>
+  <h1>Akhil <span class="amp">&amp;</span> Lali</h1>
+  <p>Same street in New York City. One introduction from a mutual best friend. Everything since.</p>
+  <div class="scroll-cue">scroll</div>
+</section>
+
+<div class="wrap">
+
+  <!-- ============ PROLOGUE ============ -->
+  <section class="chapter reveal-el" data-chapter="Prologue" id="ch-0">
+    <div class="chapter-head">
+      <span class="chapter-num">Prologue</span>
+      <h2>Same Street</h2>
+      <span class="dates">New York City, 2024</span>
+    </div>
+    <p class="chapter-intro">Our apartments were on the same block. Akhil's roommate happened to be one of Lali's best friends — one introduction, and something clicked.</p>
+    <div class="frames">
+      <figure class="photo-frame"><div class="slot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="6" width="18" height="14" rx="1"/><circle cx="12" cy="13" r="3.4"/><path d="M8 6l1.5-2.5h5L16 6"/></svg></div><figcaption>the street where it started</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- ============ CH1: THE SPARK ============ -->
+  <section class="chapter reveal-el" data-chapter="The Spark" id="ch-1">
+    <div class="chapter-head">
+      <span class="chapter-num">Chapter One</span>
+      <h2>The Spark</h2>
+      <span class="dates">August 2024</span>
+    </div>
+    <div class="moment">
+      <div class="when">Aug 11</div>
+      <div class="what">A <b>"fake" wine date</b> — wine at Purple Tongue, then a walk down the West Side Highway.</div>
+    </div>
+    <div class="moment">
+      <div class="when">Aug 18</div>
+      <div class="what">Our <b>first kiss</b>, at Rise Bar.</div>
+    </div>
+    <div class="moment">
+      <div class="when">Aug 22</div>
+      <div class="what">The real <b>first date</b>: Spyscape, dinner at Chalong, Insomnia Cookies for dessert.</div>
+    </div>
+    <div class="frames">
+      <figure class="photo-frame"><div class="slot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="6" width="18" height="14" rx="1"/><circle cx="12" cy="13" r="3.4"/><path d="M8 6l1.5-2.5h5L16 6"/></svg></div><figcaption>Purple Tongue, 8/11</figcaption></figure>
+      <figure class="photo-frame"><div class="slot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="6" width="18" height="14" rx="1"/><circle cx="12" cy="13" r="3.4"/><path d="M8 6l1.5-2.5h5L16 6"/></svg></div><figcaption>first kiss, 8/18</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- Trivia 1: first kiss -->
+  <div class="trivia reveal-el" data-answer="0">
+    <span class="eyebrow">Test your memory</span>
+    <h3>Where did we have our first kiss?</h3>
+    <div class="opts">
+      <button>Rise Bar</button>
+      <button>Purple Tongue</button>
+      <button>Spyscape</button>
+      <button>West Side Highway</button>
+    </div>
+    <div class="reveal">Rise Bar — August 18th, 2024. 🥂</div>
+  </div>
+
+  <!-- ============ CH2: FALLING ============ -->
+  <section class="chapter reveal-el" data-chapter="Falling" id="ch-2">
+    <div class="chapter-head">
+      <span class="chapter-num">Chapter Two</span>
+      <h2>Falling</h2>
+      <span class="dates">September 2024</span>
+    </div>
+    <div class="moment"><div class="when">Sep 1</div><div class="what"><b>Bonniversary.</b></div></div>
+    <div class="moment"><div class="when">Sep 4</div><div class="what"><b>Laundry Day.</b></div></div>
+    <div class="moment"><div class="when">Sep 11</div><div class="what">Lululemon sample sale, wave-watching at the pier, dinner at Laser Wolf — and we <b>became exclusive</b>.</div></div>
+    <div class="moment"><div class="when">Sep 25</div><div class="what">Wandering Fort Greene, dinner at Sukhadia.</div></div>
+    <div class="milestone">
+      <span class="line">Started Dating 🥰</span>
+      <span class="date">September 29, 2024</span>
+    </div>
+  </section>
+
+  <!-- ============ CH3: BECOMING US ============ -->
+  <section class="chapter reveal-el" data-chapter="Becoming Us" id="ch-3">
+    <div class="chapter-head">
+      <span class="chapter-num">Chapter Three</span>
+      <h2>Becoming Us</h2>
+      <span class="dates">October — December 2024</span>
+    </div>
+    <div class="moment"><div class="when">Oct 2</div><div class="what">Boba from Hey Tea, <i>The Wild Robot</i>, Upside Pizza.</div></div>
+    <div class="moment"><div class="when">Oct 5</div><div class="what">A day trip: Breakneck Ridge, the Anthony's Nose hike, Angry Orchard Cider House, dinner in Jersey City at Adda.</div></div>
+    <div class="moment"><div class="when">Oct 11</div><div class="what">A full Brooklyn day — Radio Bakery, Ceremonia, Birds of a Feather, Kolkata Chai Co, Cafe Panna.</div></div>
+    <div class="moment"><div class="when">Nov 19</div><div class="what">A snack at Poppy Poppy, a pottery wheel class, takeout from Ollie's, wine night watching <i>Parugu</i>.</div></div>
+    <div class="moment"><div class="when">Nov 21</div><div class="what">Thai food from Der Krung smuggled into the AMC for <i>Wicked</i>, then the bus home in the rain.</div></div>
+    <div class="moment"><div class="when">Dec 10</div><div class="what">A Union Square wander, hot chocolate, dinner at 5 Spice, <i>Moana 2</i>.</div></div>
+    <div class="moment"><div class="when">Dec 11</div><div class="what">A Christmas gift exchange, and we <b>made butter chicken</b> together.</div></div>
+    <div class="frames">
+      <figure class="photo-frame"><div class="slot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="6" width="18" height="14" rx="1"/><circle cx="12" cy="13" r="3.4"/><path d="M8 6l1.5-2.5h5L16 6"/></svg></div><figcaption>Breakneck Ridge, 10/5</figcaption></figure>
+      <figure class="photo-frame"><div class="slot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="6" width="18" height="14" rx="1"/><circle cx="12" cy="13" r="3.4"/><path d="M8 6l1.5-2.5h5L16 6"/></svg></div><figcaption>Brooklyn day, 10/11</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- Trivia 2: Breakneck hike -->
+  <div class="trivia reveal-el" data-answer="1">
+    <span class="eyebrow">Test your memory</span>
+    <h3>What hike did we do on our Breakneck Ridge day trip?</h3>
+    <div class="opts">
+      <button>Bear Mountain</button>
+      <button>Anthony's Nose</button>
+      <button>Storm King</button>
+      <button>Mohonk</button>
+    </div>
+    <div class="reveal">Anthony's Nose — October 5th, 2024.</div>
+  </div>
+
+  <!-- ============ CH4: I LOVE YOU ============ -->
+  <section class="chapter reveal-el" data-chapter="I Love You" id="ch-4">
+    <div class="chapter-head">
+      <span class="chapter-num">Chapter Four</span>
+      <h2>I Love You</h2>
+      <span class="dates">January — February 2025</span>
+    </div>
+    <div class="moment"><div class="when">Jan 7</div><div class="what">A magic show at a Key and Heels speakeasy, ramen after on the Upper East Side.</div></div>
+    <div class="milestone">
+      <span class="line">Akhil says "I love you"</span>
+      <span class="date">January 9, 2025</span>
+    </div>
+    <div class="moment"><div class="when">Jan 23</div><div class="what">Dinner at Uluh, dessert at Spot, then a <b>surprise from Lali</b> — laser tag and bowling at Area 53.</div></div>
+    <div class="milestone">
+      <span class="line">Lali says "I love you"</span>
+      <span class="date">February 6, 2025</span>
+    </div>
+  </section>
+
+  <!-- ============ CH5: FIRST TRIP ============ -->
+  <section class="chapter reveal-el" data-chapter="First Trip" id="ch-5">
+    <div class="chapter-head">
+      <span class="chapter-num">Chapter Five</span>
+      <h2>First Trip ✈️</h2>
+      <span class="dates">February 12 — 17, 2025</span>
+    </div>
+    <p class="chapter-intro">Copenhagen, then Stockholm. Our first stamps together.</p>
+    <div class="frames">
+      <figure class="photo-frame"><div class="slot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="6" width="18" height="14" rx="1"/><circle cx="12" cy="13" r="3.4"/><path d="M8 6l1.5-2.5h5L16 6"/></svg></div><figcaption>Copenhagen</figcaption></figure>
+      <figure class="photo-frame"><div class="slot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="6" width="18" height="14" rx="1"/><circle cx="12" cy="13" r="3.4"/><path d="M8 6l1.5-2.5h5L16 6"/></svg></div><figcaption>Stockholm</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- Trivia 3: first trip -->
+  <div class="trivia reveal-el" data-answer="0">
+    <span class="eyebrow">Test your memory</span>
+    <h3>Where was our first trip together?</h3>
+    <div class="opts">
+      <button>Copenhagen &amp; Stockholm</button>
+      <button>Guatemala</button>
+      <button>Stowe, Vermont</button>
+      <button>Paris</button>
+    </div>
+    <div class="reveal">Copenhagen &amp; Stockholm — February 2025.</div>
+  </div>
+
+  <!-- ============ CH6: STEADY & SWEET ============ -->
+  <section class="chapter reveal-el" data-chapter="Steady & Sweet" id="ch-6">
+    <div class="chapter-head">
+      <span class="chapter-num">Chapter Six</span>
+      <h2>Steady &amp; Sweet</h2>
+      <span class="dates">April — August 2025</span>
+    </div>
+    <div class="moment"><div class="when">Apr 3</div><div class="what">Omakase at Tsumo, dessert at Swerve, our <b>six-month</b> gift exchange.</div></div>
+    <div class="moment"><div class="when">May 14</div><div class="what">A Sip and Sew class, then ramen dinner at Tonchin.</div></div>
+    <div class="moment"><div class="when">Jun 21</div><div class="what">Akhil's birthday dinner at Sushi Blossom, surprise drinks with friends at DCP.</div></div>
+    <div class="moment"><div class="when">Jun 29</div><div class="what">Cellar Dog — drinks, card games, shuffleboard. Akhil made buldak for Lali. Deep talks.</div></div>
+    <div class="moment"><div class="when">Jul 17</div><div class="what">Lali's birthday: a coffee latte art class, kebab aur sharab.</div></div>
+    <div class="moment"><div class="when">Jul 26</div><div class="what">The Ocky Way, drunken Bollywood, a bike ride to Malai Ice Cream.</div></div>
+    <div class="frames">
+      <figure class="photo-frame"><div class="slot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="6" width="18" height="14" rx="1"/><circle cx="12" cy="13" r="3.4"/><path d="M8 6l1.5-2.5h5L16 6"/></svg></div><figcaption>Sip and Sew, 5/14</figcaption></figure>
+      <figure class="photo-frame"><div class="slot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="6" width="18" height="14" rx="1"/><circle cx="12" cy="13" r="3.4"/><path d="M8 6l1.5-2.5h5L16 6"/></svg></div><figcaption>birthdays</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- Trivia 4: bday dinner -->
+  <div class="trivia reveal-el" data-answer="2">
+    <span class="eyebrow">Test your memory</span>
+    <h3>Where did we go for Akhil's birthday dinner?</h3>
+    <div class="opts">
+      <button>Tonchin</button>
+      <button>Ivan Ramen</button>
+      <button>Sushi Blossom</button>
+      <button>Uluh</button>
+    </div>
+    <div class="reveal">Sushi Blossom — June 21st, 2025.</div>
+  </div>
+
+  <!-- Trivia 5: sip and sew dinner -->
+  <div class="trivia reveal-el" data-answer="1">
+    <span class="eyebrow">Test your memory</span>
+    <h3>On our Sip and Sew date, where did we have dinner?</h3>
+    <div class="opts">
+      <button>Ivan Ramen</button>
+      <button>Tonchin</button>
+      <button>Sushi Blossom</button>
+      <button>NR Upper East Side</button>
+    </div>
+    <div class="reveal">Tonchin — May 14th, 2025.</div>
+  </div>
+
+  <!-- ============ CH7: TELLING OUR PEOPLE ============ -->
+  <section class="chapter reveal-el" data-chapter="Telling Our People" id="ch-7">
+    <div class="chapter-head">
+      <span class="chapter-num">Chapter Seven</span>
+      <h2>Telling Our People</h2>
+      <span class="dates">August — September 2025</span>
+    </div>
+    <div class="milestone">
+      <span class="line">Akhil tells his parents</span>
+      <span class="date">August 6, 2025</span>
+    </div>
+    <div class="moment"><div class="when">Aug 14</div><div class="what">Restaurant week at Kru, Cafe Panna, watching soccer, chilling by the water.</div></div>
+    <div class="moment"><div class="when">Aug 22</div><div class="what"><b>Recreating our first date</b> — one year later.</div></div>
+    <div class="milestone">
+      <span class="line">Lali tells her parents</span>
+      <span class="date">September 6, 2025</span>
+    </div>
+    <div class="moment"><div class="when">Sep 29</div><div class="what"><b>Anniversary date</b> — building Lego together, xi'xa yuumm.</div></div>
+  </section>
+
+  <!-- ============ CH8: ADVENTURES CONTINUE ============ -->
+  <section class="chapter reveal-el" data-chapter="Adventures Continue" id="ch-8">
+    <div class="chapter-head">
+      <span class="chapter-num">Chapter Eight</span>
+      <h2>Adventures Continue</h2>
+      <span class="dates">October 2025 — February 2026</span>
+    </div>
+    <div class="moment"><div class="when">Oct 9–12</div><div class="what">A road trip to <b>Stowe, Vermont</b>.</div></div>
+    <div class="moment"><div class="when">Nov 6</div><div class="what">Picnic shopping at Trader Joe's, beer tasting at Talea, dinner at Jeju Noodle Bar.</div></div>
+    <div class="moment"><div class="when">Feb 12–16</div><div class="what">Our <b>second trip abroad</b> — Guatemala.</div></div>
+    <div class="frames">
+      <figure class="photo-frame"><div class="slot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="6" width="18" height="14" rx="1"/><circle cx="12" cy="13" r="3.4"/><path d="M8 6l1.5-2.5h5L16 6"/></svg></div><figcaption>Stowe, Vermont</figcaption></figure>
+      <figure class="photo-frame"><div class="slot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="6" width="18" height="14" rx="1"/><circle cx="12" cy="13" r="3.4"/><path d="M8 6l1.5-2.5h5L16 6"/></svg></div><figcaption>Guatemala</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- ============ CH9: MEETING THE FAMILIES ============ -->
+  <section class="chapter reveal-el" data-chapter="Meeting the Families" id="ch-9">
+    <div class="chapter-head">
+      <span class="chapter-num">Chapter Nine</span>
+      <h2>Meeting the Families</h2>
+      <span class="dates">November 2025</span>
+    </div>
+    <div class="milestone"><span class="line">Lali meets Akhil's family</span><span class="date">November 15, 2025</span></div>
+    <div class="milestone"><span class="line">Akhil meets Lali's family</span><span class="date">November 16, 2025</span></div>
+    <div class="milestone"><span class="line">A family hike, together</span><span class="date">November 17, 2025</span></div>
+  </section>
+
+  <!-- ============ CH10: THE RING ============ -->
+  <section class="chapter reveal-el" data-chapter="The Ring" id="ch-10">
+    <div class="chapter-head">
+      <span class="chapter-num">Chapter Ten</span>
+      <h2>The Ring</h2>
+      <span class="dates">December 2025 — April 2026</span>
+    </div>
+    <div class="moment"><div class="when">Dec 13</div><div class="what">Dinner at Ivan Ramen.</div></div>
+    <div class="moment"><div class="when">Feb 10</div><div class="what">A play, off-Broadway.</div></div>
+    <div class="moment"><div class="when">Mar 26</div><div class="what">Cocktail tasting at Ophelia rooftop, dinner at Veerays.</div></div>
+    <div class="moment"><div class="when">Apr 25</div><div class="what">Ring shopping at VRAI, and starting to plan.</div></div>
+    <div class="frames">
+      <figure class="photo-frame"><div class="slot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 21s-7-4.35-9.5-8.5C.7 8.9 2.6 5 6.3 5c2 0 3.4 1.1 4.2 2.4C11.3 6.1 12.7 5 14.7 5 18.4 5 20.3 8.9 18.5 12.5 16 16.65 12 21 12 21z"/></svg></div><figcaption>ring shopping, 4/25</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- ============ FINALE ============ -->
+  <section class="finale reveal-el">
+    <span class="eyebrow">Final Chapter</span>
+    <h2>And Then...</h2>
+    <figure class="photo-frame">
+      <div class="slot">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 21s-7-4.35-9.5-8.5C.7 8.9 2.6 5 6.3 5c2 0 3.4 1.1 4.2 2.4C11.3 6.1 12.7 5 14.7 5 18.4 5 20.3 8.9 18.5 12.5 16 16.65 12 21 12 21z"/></svg>
+      </div>
+      <figcaption>[ your photo goes here ]</figcaption>
+      <!-- FINALE PHOTO: replace the .slot div above with your engagement photo -->
+    </figure>
+    <p>Akhil asked. <br>Lali said yes.</p>
+    <p class="signature">— to be continued, forever. <br><span style="font-size:0.8rem; opacity:0.7;">(date &amp; details to be added)</span></p>
+  </section>
+
+</div>
+
+<footer>Made with love, by Akhil — for Lali</footer>
+
+<script>
+  // Reveal on scroll
+  const revealEls = document.querySelectorAll('.reveal-el');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('in-view'); }
+    });
+  }, {threshold:0.12, rootMargin:'0px 0px -8% 0px'});
+  revealEls.forEach(el=>io.observe(el));
+
+  // Progress rail
+  const chapters = document.querySelectorAll('.chapter');
+  const rail = document.getElementById('rail');
+  chapters.forEach((ch,i)=>{
+    const dot = document.createElement('div');
+    dot.className='dot';
+    dot.title = ch.dataset.chapter;
+    dot.addEventListener('click', ()=> ch.scrollIntoView({behavior:'smooth', block:'center'}));
+    rail.appendChild(dot);
+  });
+  const dots = rail.querySelectorAll('.dot');
+  const railIo = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      const idx = Array.from(chapters).indexOf(e.target);
+      if(e.isIntersecting){
+        dots.forEach(d=>d.classList.remove('active'));
+        if(dots[idx]) dots[idx].classList.add('active');
+      }
+    });
+  }, {threshold:0.5});
+  chapters.forEach(ch=>railIo.observe(ch));
+
+  // Gentle parallax on photo frames
+  let ticking = false;
+  function parallax(){
+    const frames = document.querySelectorAll('.photo-frame');
+    const vh = window.innerHeight;
+    frames.forEach(f=>{
+      const r = f.getBoundingClientRect();
+      const center = r.top + r.height/2;
+      const offset = (center - vh/2) * 0.06;
+      f.style.setProperty('--py', offset+'px');
+      f.querySelector('.slot').style.transform = `translateY(${offset*0.3}px)`;
+    });
+    ticking = false;
+  }
+  window.addEventListener('scroll', ()=>{
+    if(!ticking){ requestAnimationFrame(parallax); ticking = true; }
+  }, {passive:true});
+  parallax();
+
+  // Trivia interactions
+  document.querySelectorAll('.trivia').forEach(card=>{
+    const correctIdx = parseInt(card.dataset.answer, 10);
+    const buttons = card.querySelectorAll('.opts button');
+    const reveal = card.querySelector('.reveal');
+    buttons.forEach((btn, i)=>{
+      btn.addEventListener('click', ()=>{
+        buttons.forEach(b=>b.disabled = true);
+        buttons[correctIdx].classList.add('correct');
+        if(i !== correctIdx) btn.classList.add('incorrect');
+        reveal.classList.add('show');
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
